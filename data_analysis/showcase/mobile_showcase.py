@@ -67,3 +67,28 @@ def mobile_showcase(data_repository):
     Apple_PostsByMonths = posts_by_months(Apple_PostsDF, "Apple", AppleReleaseDates, "purple")
     Android_PostsByMonths = posts_by_months(Android_PostsDF, "Android", AndroidReleaseDates, "green")
     Windows_PostsByMonths = posts_by_months(Windows_PostsDF, "Windows", WindowsReleaseDates, "blue")
+
+    test = pd.merge(Apple_PostsByMonths, Android_PostsByMonths, on = 'YearMonth', how = 'outer').fillna(0)
+    test = pd.merge(test, Windows_PostsByMonths, on = 'YearMonth', how = 'outer').fillna(0)
+    #test = Android_PostsByMonths[Android_PostsByMonths['YearMonth'].isin(Apple_PostsByMonths['YearMonth'])]
+
+    ax = test.plot.area()
+
+
+    for point in AppleReleaseDates:
+        rowNo = test[test['YearMonth'] == point].index[0]
+        ax.axvline(rowNo, color="red", linestyle="--")
+
+    for point in AndroidReleaseDates:
+        rowNo = test[test['YearMonth'] == point].index[0]
+        ax.axvline(rowNo, color="yellow", linestyle="--")
+
+    for point in WindowsReleaseDates:
+        rowNo = test[test['YearMonth'] == point].index[0]
+        ax.axvline(rowNo, color="blue", linestyle="--")
+
+    ax.get_figure().savefig('test.png')
+
+    posts_by_months(Apple_PostsDF, "AppleWithAndroidRelease", AndroidReleaseDates, "green")
+
+    print(test)
