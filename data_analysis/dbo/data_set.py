@@ -2,14 +2,14 @@ import os
 
 from xml.etree import ElementTree as et
 
-from data_analysis.dbo.models.comment import Comment
-from data_analysis.dbo.models.badge import Badge
-from data_analysis.dbo.models.post import Post
-from data_analysis.dbo.models.post_history import PostHistory
-from data_analysis.dbo.models.post_link import PostLink
-from data_analysis.dbo.models.tag import Tag
-from data_analysis.dbo.models.user import User
-from data_analysis.dbo.models.vote import Vote
+from .models.comment import Comment
+from .models.badge import Badge
+from .models.post import Post
+from .models.post_history import PostHistory
+from .models.post_link import PostLink
+from .models.tag import Tag
+from .models.user import User
+from .models.vote import Vote
 
 
 class DataSet:

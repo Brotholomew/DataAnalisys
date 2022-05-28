@@ -1,9 +1,7 @@
-from math import sqrt
-
 import numpy as np
 
 from .cluster import Cluster
-from ..utils.utils import Mailbox
+from utils.utils import Mailbox
 
 
 class ClusterCollection:

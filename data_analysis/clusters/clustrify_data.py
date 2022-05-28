@@ -1,4 +1,4 @@
-from data_analysis.clusters.cluster_object import ClusterObject
+from .cluster_object import ClusterObject
 
 
 def clustrify_data(data_set, data_table, selector):

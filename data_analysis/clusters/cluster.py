@@ -1,6 +1,3 @@
-from functools import reduce
-
-
 class Cluster:
     def __init__(self, _center):
         self.center = _center

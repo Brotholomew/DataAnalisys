@@ -3,8 +3,8 @@ import wget
 import py7zr
 import shutil
 
-from data_analysis.dbo.data_set import DataSet
-from ..utils.utils import Mailbox
+from .data_set import DataSet
+from utils.utils import Mailbox
 
 
 class DataRepository:
