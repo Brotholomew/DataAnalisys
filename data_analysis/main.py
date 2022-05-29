@@ -11,9 +11,9 @@ if __name__ == "__main__":
     data_sources = [
         {"dirname": "3dprinting", "url": "https://archive.org/download/stackexchange/3dprinting.meta.stackexchange.com.7z"},
         {"dirname": "android", "url": "https://archive.org/download/stackexchange/android.meta.stackexchange.com.7z"},
-        {"dirname": "apple_cmp1", "url": "https://archive.org/download/stackexchange/apple.meta.stackexchange.com.7z"},
-        {"dirname": "android_cmp1", "url": "https://archive.org/download/stackexchange/android.meta.stackexchange.com.7z"},
-        {"dirname": "windowsphone_cmp1", "url": "https://archive.org/download/stackexchange/windowsphone.meta.stackexchange.com.7z"},
+        {"dirname": "apple_cmp1", "url": "https://archive.org/download/stackexchange/apple.stackexchange.com.7z"},
+        {"dirname": "android_cmp1", "url": "https://archive.org/download/stackexchange/android.stackexchange.com.7z"},
+        {"dirname": "windowsphone_cmp1", "url": "https://archive.org/download/stackexchange/windowsphone.stackexchange.com.7z"},
     ]
 
     data_repository = DataRepository(_data_sources=data_sources, _data_directory="../../data", _caching=True)

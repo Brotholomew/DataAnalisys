@@ -16,22 +16,6 @@ def get_month(date):
 def get_year_month(date):
     return date.split("-")[0] + "-" + date.split("-")[1]
 
-def most_popular_posts(PostsDF, VotesDF):
-    # Select upvotes
-    VotesDF = VotesDF[VotesDF['voteTypeId'] == 2]
-
-    # Join posts with votes
-    posts = pd.merge(PostsDF, VotesDF, how = 'inner', left_on = 'id', right_on = 'postId')
-
-    # Count upvotes for each posts
-    postUpVotes = posts.groupby(['id_x', 'title'])['id_x'].count().reset_index(name = 'UpVoteCount')
-
-    # Sort by number of upvotes
-    postUpVotes = postUpVotes.sort_values('UpVoteCount', ascending = False)
-
-    # Get top 3 posts
-    result = postUpVotes[['title', 'UpVoteCount']].head(3)
-
 def posts_by_months(PostsDF):
     # Create column with year and month
     PostsDF['YearMonth'] = PostsDF['creationDate'].apply(lambda date: get_year_month(date))
@@ -45,8 +29,10 @@ def draw_plot_post_by_months(Data, OutputPrefix, ServiceName, PointsName, Points
     # Generate release date markers
     markers = []
     for point in PointsOfInterest:
-        rowNo = Data[Data['YearMonth'] == point].index[0]
-        markers.append(rowNo)
+        location = Data[Data['YearMonth'] == point].index
+        if len(location) > 0:
+            rowNo = location[0]
+            markers.append(rowNo)
     markerLegend = mlines.Line2D([], [], color = Color, marker = 'd', 
                         linestyle = 'None', markersize=10, label = PointsName)    
 
@@ -56,7 +42,7 @@ def draw_plot_post_by_months(Data, OutputPrefix, ServiceName, PointsName, Points
     
     # Generate labels
     plt.xticks(range(0, len(Data['YearMonth']), 5), rotation = 90)
-    plt.title(f"Liczby wpisów dla poszczególnych miesięcy w serwisie {ServiceName}")
+    plt.title(f"Liczba wpisów dla poszczególnych miesięcy w serwisie {ServiceName}")
     plt.ylabel("Liczba utworzonych wpisów")
     plt.legend(handles=[markerLegend])
 
@@ -73,7 +59,6 @@ def draw_plot_area(DataSets, PointsOfInterestSets, Colors, ColumnNames, MarkerNa
     # Change column names 
     data.columns = ['YearMonth'] + ColumnNames
 
-    print(data)
     # Plot area
     plt.figure(dpi=1200)
     
@@ -118,13 +103,13 @@ def mobile_showcase(data_repository):
     Windows_PostsByMonths = posts_by_months(Windows_PostsDF)
 
     # Draw plots
-    draw_plot_post_by_months(Apple_PostsByMonths, "Apple", "Apple", "Premiera nowej wersja systemu iOS", AppleReleaseDates, "purple")
-    draw_plot_post_by_months(Android_PostsByMonths, "Android", "Android", "Premiera nowej wersja systemu Android", AndroidReleaseDates, "green")
-    draw_plot_post_by_months(Windows_PostsByMonths, "Windows", "Windows Phone", "Premiera nowej wersja systemu Windows Phone", WindowsReleaseDates, "blue")
+    draw_plot_post_by_months(Apple_PostsByMonths, "Apple", "Apple", "Premiera nowej wersji systemu iOS", AppleReleaseDates, "purple")
+    draw_plot_post_by_months(Android_PostsByMonths, "Android", "Android", "Premiera nowej wersji systemu Android", AndroidReleaseDates, "green")
+    draw_plot_post_by_months(Windows_PostsByMonths, "Windows", "Windows Phone", "Premiera nowej wersji systemu Windows Phone", WindowsReleaseDates, "blue")
 
     # Draw common plot
-    draw_plot_area([Apple_PostsByMonths, Android_PostsByMonths, Windows_PostsByMonths], [AppleReleaseDates, AndroidReleaseDates, WindowsReleaseDates], ["purple", "green", "blue"], ["Apple", "Android", "Windows Phone"], ["Premiera nowej wersja systemu iOS", "Premiera nowej wersja systemu Android", "Premiera nowej wersja systemu Windows Phone"], "Common")
+    draw_plot_area([Apple_PostsByMonths, Android_PostsByMonths, Windows_PostsByMonths], [AppleReleaseDates, AndroidReleaseDates, WindowsReleaseDates], ["purple", "green", "blue"], ["Apple", "Android", "Windows Phone"], ["Premiera nowej wersji systemu iOS", "Premiera nowej wersji systemu Android", "Premiera nowej wersji systemu Windows Phone"], "Common")
 
     # Draw cross-platform plots
-    draw_plot_post_by_months(Apple_PostsByMonths, "Apple", "Apple_AndroidRelease_",  "Premiera nowej wersja systemu Android", AndroidReleaseDates, "purple")
-    #draw_plot_post_by_months(Android_PostsByMonths, "Android", "Android_AppleRelease_", "Premiera nowej wersja systemu iOS", AppleReleaseDates, "green")
+    draw_plot_post_by_months(Apple_PostsByMonths, "Apple_AndroidRelease", "Apple",  "Premiera nowej wersji systemu Android", AndroidReleaseDates, "purple")
+    draw_plot_post_by_months(Android_PostsByMonths, "Android_AppleRelease", "Android", "Premiera nowej wersja systemu iOS", AppleReleaseDates, "green")
