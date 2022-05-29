@@ -29,6 +29,7 @@ class ClusterCollection:
         return clusters
 
     def k_means(self):
+        Mailbox.debug(f"began k-means algorithm for a set of {len(self.objects)} observations")
         changed = True
         while changed:
             changed = False
@@ -42,3 +43,5 @@ class ClusterCollection:
             # Update phase
             for cluster in self.clusters:
                 cluster.update()
+
+        Mailbox.debug(f"finished k-means algorithm for a set of {len(self.objects)} observations")
