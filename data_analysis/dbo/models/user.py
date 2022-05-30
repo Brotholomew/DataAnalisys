@@ -11,7 +11,7 @@ class User:
         self.views = int(_views)
         self.upVotes = int(_up_votes)
         self.downVotes = int(_down_votes)
-        self.accountId = int(_account_id)
+        #self.accountId = int(_account_id)
 
     @staticmethod
     def create(node):
