@@ -35,3 +35,5 @@ wget==3.2
 wrapt==1.14.1
 xml-python==0.4.3
 zipfile-deflate64==0.2.0
+pandas==1.4.2
+matplotlib==3.5.2
