@@ -14,6 +14,8 @@ def get_month(date):
     return date.split("-")[1]
 
 def get_year_month(date):
+    if type(date) != str:
+        date = date.strftime('%Y-%m-%d %X')
     return date.split("-")[0] + "-" + date.split("-")[1]
 
 def posts_by_months(PostsDF):
